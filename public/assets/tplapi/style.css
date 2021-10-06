@@ -1,0 +1,84 @@
+
+
+div#map {
+    z-index: 1;
+}
+
+div#cover {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    z-index: 300;
+    float: right;
+    /*height: 75%;*/
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    padding: 20px !important;
+}
+#searchBtn{
+    display: none!important;
+}
+#cancelBtn{
+    display: none!important;
+}
+ #txtSearch {
+    width: 580px!important;
+    height: 38px!important;
+    font-size: 15px!important;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+
+input,
+#txtSearch {
+
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 100;
+    color: #6e707e;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #d1d3e2;
+    border-radius:none;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+div#response {
+    position: relative;
+    top: 15%;
+    left: 1%;
+    z-index: 300;
+    float: left;
+    display: none;
+}
+
+input::-webkit-input-placeholder {
+    font-size: 13px;
+    line-height: 3;
+}
+
+.form-group.required.control-label label:after {
+    color: red;
+    content: "*";
+    position: absolute;
+    margin-left: 0px;
+}
+
+.table>tbody>tr:first-child>td,
+.table>tbody>tr:first-child>th {
+    border: none;
+}
+
+#show_hide_btn {
+    z-index: 999;
+    top: 30%;
+    position: absolute;
+    right: 100%;
+    background-color: #0c6055;
+    border-radius: 4px 0 0 4px;
+    padding: 3px;
+}

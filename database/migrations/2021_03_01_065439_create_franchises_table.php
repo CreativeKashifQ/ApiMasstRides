@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateFranchisesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('franchises', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('cnic');
+            $table->string('phone');
+            $table->string('address');
+            $table->string('city');
+            $table->string('subscription_days');
+            $table->string('paid_amount');
+            $table->string('paid_by');
+            $table->string('transaction_id');
+            $table->string('transaction_slip');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('franchises');
+    }
+}
