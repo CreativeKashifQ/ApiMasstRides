@@ -55,10 +55,11 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <img style="width: 40px; height:40px;" src="{{ asset('images/user-image.png') }}">
                 </div>
-                <div class="sidebar-brand-text mx-3">Welcome </div>
+                <div class="sidebar-brand-text mx-3">
                 @if(auth()->user()->isFranchisee())
                 <small>{{auth()->user()->franchise->name}}</small>
                 @endif
+                 </div>
             </a>
 
             <!-- Divider -->
@@ -247,6 +248,7 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
 <script src="{{ asset('assets/js/jQuery.print.min.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js"></script>
 {{-- TPL Api --}}
 {{-- <script src="{{ asset('assets/tplapi/script.js') }}"></script>
       <script src="https://api.tplmaps.com/js-api-v2/assets/tplmaps.js?api_key=$2a$10$6hD6jZoIvgY2gUFw4jkPye5AMQvzE0JCIdzmSK1hVDbn95SZ2Bc8G"></script> --}}

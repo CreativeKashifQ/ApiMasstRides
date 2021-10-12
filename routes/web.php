@@ -109,12 +109,15 @@ Route::group(['prefix'=>'vehicle'],function(){
 
 //Driver Routes
 Route::group(['prefix'=>'driver'],function(){
+    Route::get('search/{city}','App\Http\Controllers\DriverController@search')->name('driver.search');
 	Route::get('show','App\Http\Controllers\DriverController@index')->name('driver.show');
 	Route::get('create','App\Http\Controllers\DriverController@create')->name('driver.create');
 	Route::post('store','App\Http\Controllers\DriverController@store')->name('driver.store');
 	Route::get('edit/{id}','App\Http\Controllers\DriverController@edit')->name('driver.edit');
 	Route::post('update/{id}','App\Http\Controllers\DriverController@update')->name('driver.update');
 	Route::get('destroy/{id}','App\Http\Controllers\DriverController@destory')->name('driver.destroy');
+    Route::get('show/franchise/{id}','App\Http\Controllers\DriverController@showFranchises')->name('show.franchises');
+    Route::post('assign/franchis','App\Http\Controllers\DriverController@assignFranchise')->name('assign.franchise');
 });
 
 //HRM Routes

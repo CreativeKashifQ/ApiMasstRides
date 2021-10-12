@@ -5,14 +5,12 @@
         <span class="text-color-black">Customers</span></a>
 </li>
 
-
 <!-- Vehicle -->
 <li class="nav-item">
     <a class="nav-link" href="{{ route('driver.show') }}">
-        <i class="fa fa-users text-light"></i>
+        <i class="fa fa-car text-light"></i>
         <span class="text-color-black">Drivers</span></a>
 </li>
-
 
 <!-- Vehicle -->
 <li class="nav-item">

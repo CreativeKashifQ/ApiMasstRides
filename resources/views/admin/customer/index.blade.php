@@ -26,6 +26,7 @@
             <thead>
                 <tr style="font-size: 13px;" class="text-green">
                     <th>#</th>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -41,6 +42,7 @@
                 @foreach($customers as $key=> $customer)
                 <tr style="font-size: 13px;" >
                     <td>{{++$key}}</td>
+                    <td><a href="{{ asset('images/uploads/profilepics/'.$customer->city) }}"><img class="img-thumbnail rounded" style="height:50px; width:50px;" src="{{ asset('images/uploads/profilepics/'.$customer->city) }}"></a></td>
                     <td>{{$customer->name}}</td>
                     <td>{{$customer->user != null ? $customer->user->email : $customer->email}}</td>
                     <td>{{$customer->user != null ? $customer->user->phone : $customer->phone}}</td>

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Driver;
-use Illuminate\Http\Request;
 use Image;
+use App\Driver;
+use App\Franchise;
+use Illuminate\Http\Request;
 
 class DriverController extends Controller
 {
@@ -13,6 +14,30 @@ class DriverController extends Controller
         $this->middleware('auth');
     }
 
+
+    public function search($city)
+    {
+        if($city != 'null'){
+        $drivers = Driver::where('city','LIKE','%'.$city.'%')->get();
+        return view('admin.driver.search',compact('drivers'));
+        }else{
+        $drivers = Driver::all();
+        return view('admin.driver.search',compact('drivers'));
+        }
+    }
+
+    public function showFranchises($id)
+    {
+        $driver = Driver::where('id',$id)->first();
+        $franchises = Franchise::where('city',$driver->city)->get();
+        return view('admin.driver.f-assign',compact('franchises','driver'));
+
+    }
+
+    public function assignFranchise(Request $request)
+    {
+        dd($request->all());
+    }
     /**
      * Display a listing of the resource.
      *

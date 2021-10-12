@@ -144,6 +144,7 @@ class AuthController extends Controller
             $driver->state = $request->state;
             $driver->city = $request->city;
             $driver->save();
+            // $driver->dispatchDriverNotification();
         }
         $parts = explode('|',$user->createToken('OopoA83')->plainTextToken);
         $token = $parts[1];

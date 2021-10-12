@@ -51,4 +51,9 @@ class Franchise extends Model
         return $this->hasOne(User::class);
     }
 
+    public function drivers()
+    {
+        return $this->hasMany(Driver::class);
+    }
+
 }

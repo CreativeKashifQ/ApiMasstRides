@@ -11,7 +11,11 @@
                 class="fas fa-plus fa-sm text-white "></i> New Customer </button> --}}
         </div>
     </div>
-
+    <div  class="row mb-4">
+        <div class="col-4">
+               <input type="text" class="form-control"  placeholder="Search By City" onkeyup="SearchCity()" id="SearchCity"/>
+        </div>
+    </div>
     <div class="table-responsive">
          @if(Session::has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -32,13 +36,13 @@
                     <th>State</th>
                     <th>City</th>
                     <th>Created At</th>
-                    {{-- <th>Actions</th> --}}
+                    <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="data">
                 @if(isset($drivers) && $drivers->count() > 0)
                 @foreach($drivers as $key=> $driver)
-                <tr style="font-size: 13px;" >
+                <tr style="font-size: 13px;"  >
                     <td>{{++$key}}</td>
                     <td>{{$driver->name}}</td>
                     <td>{{$driver->email}}</td>
@@ -47,10 +51,9 @@
                     <td>{{$driver->state}}</td>
                     <td>{{$driver->city}}</td>
                     <td>{{Carbon\Carbon::parse($driver->created_at)->format('d M, Y')}}</td>
-                    {{-- <td class="d-flex d-inline">
-                        <button disabled  href="{{ route('customer.edit',$customer->id) }}" class="btn bg-green text-white btn-sm"><i class="fa fa-pencil"></i></button> |
-                        <button disabled class="btn bg-danger text-light btn-sm" href="{{ route('customer.destroy',$customer->id) }}" ><i class="fa fa-trash"></i></button>
-                    </td> --}}
+                    <td class="d-flex d-inline">
+                        <a href="{{route('show.franchises',$driver->id)}}" class="btn btn-link btn-sm">Assign Franchise</a>
+                    </td>
 
                 </tr>
                 @endforeach
@@ -64,4 +67,32 @@
         </table>
      </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+
+       function SearchCity(){
+            let val = document.getElementById('SearchCity').value;
+            let city = val ? val : null ;
+            // Creating the XMLHttpRequest object
+                var request = new XMLHttpRequest();
+            let baseUrl = window.location.origin;
+            let url = baseUrl+'/driver/search/'+city;
+            // Instantiating the request object
+            request.open("GET",url);
+
+            // Defining event listener for readystatechange event
+            request.onreadystatechange = function() {
+                // Check if the request is compete and was successful
+                if(this.readyState === 4 && this.status === 200) {
+                    // Inserting the response from server into an HTML element
+                    document.getElementById('data').innerHTML = this.responseText;
+                }
+            };
+
+            // Sending the request to the server
+            request.send();
+        }
+    </script>
 @endsection
