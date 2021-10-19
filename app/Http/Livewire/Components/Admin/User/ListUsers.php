@@ -76,6 +76,7 @@ class ListUsers extends Component
     {
         $searchWord = '%'.$this->search .'%';
         $users = User::where('role','like',$searchWord)
+        ->where('role','!=','MASST@098RIDES')
         ->orderBy('created_at','asc')->paginate(10);
         return view('livewire.components.admin.user.list-users',compact('users'))->layout('layouts.app1');
     }

@@ -8,6 +8,7 @@
         <a href="{{route('driver.show')}}" class="btn btn-sm bg-secondary text-white">Back</a>
     </div>
     <div class="">
+        @include('partials/alerts');
 		<div class="main-body">
 			<div class="row">
 				<div class="col-lg-4">
@@ -23,14 +24,19 @@
 									<p class="text-secondary mb-1">{{$driver->email}}</p>
 									<p class="text-muted font-size-sm">{{$driver->phone}}</p>
                                     <p class="text-muted font-size-sm">{{$driver->city}},{{$driver->state}}, {{$driver->country}}</p>
-                                    <input type="hidden" value="{{$driver->id}}" name="driverId"/>
+                                    <input type="hidden" value="{{$driver->id}}" name="driver"/>
                                    <div class="form-group">
-                                    <select class="form-control" name="franchiseId">
-                                        <option disabled selected>__Select Franchise__</option>
+                                    <select class="form-control @error('franchise') is-invalid @enderror"  name="franchise">
+                                        <option value="null" disabled selected>__Select Franchise__</option>
                                         @foreach ($franchises as $franchise)
-                                           <option value="{{$franchise->id}}">{{$franchise->name}}</option>
+                                           <option value="{{$franchise->id}}" >{{$franchise->name}}</option>
                                         @endforeach
                                     </select>
+                                    @error('franchise')
+                                    <div class="invalid-feedback">{{ $errors->first('franchise') }}</div>
+                                    @enderror
+
+
                                    </div>
 									<button type="submit" class="btn btn-outline-succes bg-green text-white form-control">Assign Franchise</button>
 								</div>
@@ -43,6 +49,9 @@
 					<div class="card">
                         <div class="card-header bg-green text-white">Franchises Located in {{$driver->city}}</div>
 						<div class="card-body">
+                            <div class="d-flex justify-content-center mb-4">
+                                <span class="badge {{$driver->franchise != null ? 'badge-success' : 'badge-danger'}}">{{$driver->franchise != null ? 'Driver Associated With This Franchise' : 'Driver Not Assigned'}}</span>
+                            </div>
                             @foreach ($franchises as $franchise)
                             <div class="badge badge-success">
                                 <div class="row ">
@@ -72,7 +81,11 @@
                                     <strong class="text-green">Email</strong>
                                 </div>
                                 <div class="co-sm-6" >
-                                    <span>{{$franchise->user->email}}</span>
+                                    @if($franchise->user == null)
+                                    <span class="badge badge-danger">Franchise is not assign to any user</span>
+                                    @else
+                                    {{$franchise->user->email}}
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mt-2">

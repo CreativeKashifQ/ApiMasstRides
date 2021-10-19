@@ -100,17 +100,6 @@ class AuthController extends Controller
             'password'=> 'required|same:password_confirm',
             'role' => 'required',
         ]);
-        }elseif($request->role == 'driver'){
-            //validate the records if input field is empty
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:drivers,email',
-            'phone' => 'required|unique:users,phone',
-            'country' => 'required',
-            'state' => 'required',
-            'city' => 'required',
-            'role' => 'required',
-        ]);
         }
 
          //save customer information in user table to get login
@@ -119,8 +108,6 @@ class AuthController extends Controller
          $user->email =$request->email;
          if($request->role == 'customer'){
             $user->setCustomerRole();
-         }elseif($request->role == 'driver'){
-            $user->setDriverRole();
          }
          $user->password = Hash::make($request->password);
          $user->save();
@@ -134,17 +121,6 @@ class AuthController extends Controller
         $customer->state = $request->state;
         $customer->city = $request->city;
         $customer->save();
-        }elseif($request->role == 'driver'){
-            $driver  = new Driver;
-            $driver->user_id = $user->id;
-            $driver->name = $request->name;
-            $driver->email = $request->email;
-            $driver->phone = $request->phone;
-            $driver->country = $request->country;
-            $driver->state = $request->state;
-            $driver->city = $request->city;
-            $driver->save();
-            // $driver->dispatchDriverNotification();
         }
         $parts = explode('|',$user->createToken('OopoA83')->plainTextToken);
         $token = $parts[1];

@@ -17,6 +17,7 @@ class CreateVehicleDocumentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('vehicle_request_id');
             $table->string('type');
+            $table->string('type_name');
             $table->string('file');
             $table->timestamps();
         });

@@ -17,14 +17,7 @@
         </div>
     </div>
     <div class="table-responsive">
-         @if(Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <strong>Success ! </strong> {{Session::get('success')}}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            @endif
+         @include('partials/alerts')
        <table class="table   table-striped table-sm   " >
             <thead>
                 <tr style="font-size: 13px;" class="text-green">

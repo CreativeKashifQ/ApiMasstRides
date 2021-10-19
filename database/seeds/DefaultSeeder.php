@@ -412,7 +412,7 @@ class DefaultSeeder extends Seeder
             'paid_amount' => '500 Rs.',
             'paid_by' => 'Bank Account',
             'transaction_id' => 'Z124@MASSTRIDES',
-            'transaction_slip' => '1630436282jpg'
+            'transaction_slip' => '1630436282.jpg'
         ]);
 
         DB::table('engines')->insert([

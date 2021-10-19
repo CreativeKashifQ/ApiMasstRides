@@ -25,6 +25,17 @@ class FranchiseController extends Controller
         return view('admin.franchise.index',compact('franchises'));
     }
 
+    public function franchiseActions(Franchise $franchise)
+    {
+        return view('admin.franchise.more-actions',compact('franchise'));
+    }
+
+    public function franchiseVehicleRequests(Franchise $franchise)
+    {
+        $v_requests = $franchise->vrequests;
+        return view('admin.franchise.v-requests',compact('v_requests','franchise'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -152,6 +163,13 @@ class FranchiseController extends Controller
         } catch (\Exception $e) {
             return $e->getmessage();
         }
+    }
+
+
+    public function franchiseDriver(Franchise $franchise)
+    {
+        $drivers = $franchise->drivers;
+        return view('admin.franchise.drivers',compact('drivers','franchise'));
     }
 
     /**

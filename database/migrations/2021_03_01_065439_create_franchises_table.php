@@ -15,7 +15,6 @@ class CreateFranchisesTable extends Migration
     {
         Schema::create('franchises', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('driver_id')->nullable();
             $table->string('name');
             $table->string('cnic');
             $table->string('phone');

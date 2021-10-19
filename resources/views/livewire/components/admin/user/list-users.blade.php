@@ -3,6 +3,9 @@
         @include('livewire.components.admin.user.create-user')
         @include('livewire.components.admin.user.update-user')
     </div>
+    <div class="mb-3">
+        <h5 class="mb-0 text-green font-weight-bold">Users List</h5>
+       </div>
     <div class="row">
         <div class="col-md-4 col-12">
             <div class="form-group">

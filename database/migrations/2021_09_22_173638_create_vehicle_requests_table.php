@@ -15,13 +15,14 @@ class CreateVehicleRequestsTable extends Migration
     {
         Schema::create('vehicle_requests', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('franchise_id');
             $table->string('name');
-            $table->string('email')->nullable();
+            $table->string('email');
             $table->string('phone');
             $table->string('cnic');
             $table->string('city');
-            $table->string('v_name');
-            $table->string('v_model');
+            $table->string('state');
+            $table->string('country');
             $table->timestamps();
         });
     }

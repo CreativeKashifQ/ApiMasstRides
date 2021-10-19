@@ -30,75 +30,103 @@ class VehicleRequestController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => '',
+            'email' => 'required',
             'phone' => 'required|unique:vehicle_requests,phone',
             'cnic' => 'required',
             'city' => 'required',
-            'd_lisence' => 'required',
-            'v_name' => 'required',
-            'v_model' => 'required',
-            'v_documents' => 'required',
-            'v_pics' => 'required',
+            'state' => 'required',
+            'country' => 'required',
         ]);
+
         //save vehicle request  personal information
         $v_request = new VehicleRequest();
         $v_request->name  = $request->name;
         $v_request->email  = $request->email;
         $v_request->phone  = $request->phone;
         $v_request->cnic  = $request->cnic;
-        $v_request->v_name  = $request->v_name;
-        $v_request->v_model  = $request->v_model;
+        $v_request->city  = $request->city;
+        $v_request->state  = $request->state;
+        $v_request->country  = $request->country;
         $v_request->save();
 
-        //save documents of vehicles
-        $v_document = new VehicleDocument();
-        if($request->hasFile(['d_lisence','v_documents','v_pics'])){
-            //for driving lisence
-            if($request->file('d_lisence')){
-            $file = $request->file('d_lisence');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            Image::make($file)->resize(200, 200)->save(public_path('images/uploads/documents/'.$filename));
-            $v_document->type = 'd_lisence';
-            $v_document->vehicle_request_id = $v_request->id;
+        return $this->success([],'Vehicle Owner Record Saved Successfully',200);
+
+    }
+    //UPLOADING VEHICLE REQUESTS DOCUMENTS AND IMAGES
+    public function uploadVehicleRequestImages(Request $request)
+    {
+
+        $request->validate([
+            'id' => 'required',
+            'file' => 'required',
+            'type' => 'required',
+            'type_name' => 'required'
+        ]);
+
+          //INITIATING VEHICLEDOCUMENT CLASS TO SAVE IMAGES
+          $v_document = new VehicleDocument();
+            //VEHICLE IMAGES
+          if($request->type_name == 'vehicle' && $request->type == 'vehicle_image'){
+            $filename="IMG".rand().".jpg";
+            file_put_contents(public_path('images/uploads/documents/').$filename,base64_decode($request->file));
+            $v_document->vehicle_request_id = $request->id;
+            $v_document->type_name = $request->type_name;
+            $v_document->type = $request->type;
             $v_document->file = $filename;
             $v_document->save();
-            }
-            //for vehicle documents
-            if($request->file('v_documents')){
-            $files = $request->file('v_documents');
-            foreach($files as $key => $file ){
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            Image::make($file)->resize(200, 200)->save(public_path('images/uploads/documents/'.$filename));
-            $v_document->type = 'v_document';
-            $v_document->vehicle_request_id = $v_request->id;
+         }
+         //VEHICLE DOCUMENTS
+         if($request->type_name == 'vehicle' && $request->type == 'vehicle_document'){
+            $filename="IMG".rand().".jpg";
+            file_put_contents(public_path('images/uploads/documents/').$filename,base64_decode($request->file));
+            $v_document->vehicle_request_id = $request->id;
+            $v_document->type_name = $request->type_name;
+            $v_document->type = $request->type;
             $v_document->file = $filename;
             $v_document->save();
-            }
-            //for vehicle v_pics
-            if($request->file('v_pics')){
-                $files = $request->file('v_pics');
-                foreach($files as $key => $file ){
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                Image::make($file)->resize(200, 200)->save(public_path('images/uploads/documents/'.$filename));
-                $v_document->type = 'v_pic';
-                $v_document->vehicle_request_id = $v_request->id;
-                $v_document->file = $filename;
-                $v_document->save();
-            }
+         }
+         //CNIC FRONT SIDE
+         if($request->type_name == 'driver_cnic' && $request->type == 'front_side'){
+            $filename="IMG".rand().".jpg";
+            file_put_contents(public_path('images/uploads/documents/').$filename,base64_decode($request->file));
+            $v_document->vehicle_request_id = $request->id;
+            $v_document->type_name = $request->type_name;
+            $v_document->type = $request->type;
+            $v_document->file = $filename;
+            $v_document->save();
+         }
+         //CNIC BACK SIDE
+         if($request->type_name == 'driver_cnic' && $request->type == 'back_side'){
+            $filename="IMG".rand().".jpg";
+            file_put_contents(public_path('images/uploads/documents/').$filename,base64_decode($request->file));
+            $v_document->vehicle_request_id = $request->id;
+            $v_document->type_name = $request->type_name;
+            $v_document->type = $request->type;
+            $v_document->file = $filename;
+            $v_document->save();
+         }
+         //LISENCE FRONT SIDE
+         if($request->type_name == 'driver_lisence' && $request->type == 'front_side'){
+            $filename="IMG".rand().".jpg";
+            file_put_contents(public_path('images/uploads/documents/').$filename,base64_decode($request->file));
+            $v_document->vehicle_request_id = $request->id;
+            $v_document->type_name = $request->type_name;
+            $v_document->type = $request->type;
+            $v_document->file = $filename;
+            $v_document->save();
+         }
+         //LISENCE BACK SIDE
+         if($request->type_name == 'driver_lisence' && $request->type == 'back_side'){
+            $filename="IMG".rand().".jpg";
+            file_put_contents(public_path('images/uploads/documents/').$filename,base64_decode($request->file));
+            $v_document->vehicle_request_id = $request->id;
+            $v_document->type_name = $request->type_name;
+            $v_document->type = $request->type;
+            $v_document->file = $filename;
+            $v_document->save();
+         }
 
-
-            }
-
-        }else{
-            return $this->error([
-                'data' => null,
-            ],'Documents not attach',301);
-        }
-
-
-
-
-
+         return $this->success([],'Vehicle Images,documents,driver lisence,driver cnic Successfully Uploaded',200);
 
 
     }
@@ -110,6 +138,6 @@ class VehicleRequestController extends Controller
     |--------------------------------------------------------------------------
     | Helper functions will be defined  here..
     */
-    }
+
 
 }

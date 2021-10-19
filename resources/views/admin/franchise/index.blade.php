@@ -68,6 +68,7 @@
                     <td class="d-flex d-inline">
                         <a  href="{{ route('franchise.edit',$franchise->id) }}" class="btn bg-green text-white btn-sm"><i class="fa fa-pencil"></i></a> |
                         <a class="btn bg-danger text-light btn-sm" href="{{ route('franchise.destroy',$franchise->id) }}" ><i class="fa fa-trash"></i></a>
+                        <a class="btn btn-link text-dark btn-sm" href="{{ route('franchise.more-actions',$franchise->id) }}" >More...</a>
                     </td>
 
                 </tr>

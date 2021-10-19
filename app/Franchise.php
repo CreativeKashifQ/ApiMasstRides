@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Courierweight;
+use App\VehicleRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Courierweight;
 
 class Franchise extends Model
 {
@@ -54,6 +55,11 @@ class Franchise extends Model
     public function drivers()
     {
         return $this->hasMany(Driver::class);
+    }
+
+    public function vrequests()
+    {
+        return $this->hasMany(VehicleRequest::class);
     }
 
 }

@@ -53,6 +53,10 @@ Route::group(['prefix'=>'franchise','middleware'=>'can:isAdmin'],function(){
 	Route::get('trashed','App\Http\Controllers\FranchiseController@trashed')->name('franchise.trashed');
 	Route::get('restore/{id}','App\Http\Controllers\FranchiseController@restore')->name('franchise.restore');
 	Route::get('destroy/{id}','App\Http\Controllers\FranchiseController@destory')->name('franchise.destroy');
+
+    Route::get('{franchise}/actions/','App\Http\Controllers\FranchiseController@franchiseActions')->name('franchise.more-actions');
+    Route::get('{franchise}/drivers/','App\Http\Controllers\FranchiseController@franchiseDriver')->name('franchise.drivers');
+    Route::get('{franchise}/vehicle/requests','App\Http\Controllers\FranchiseController@franchiseVehicleRequests')->name('franchise.v-requests');
 });
 
 //Customer Routes
@@ -101,10 +105,13 @@ Route::group(['prefix'=>'vehicle'],function(){
 //Vehicles Livewire Routes
 Route::group(['prefix'=>'vehicle'],function(){
     Route::get('list',App\Http\Livewire\Components\Admin\Vehicle\ListVehicles::class)->name('list.vehicles');
-    Route::get('request-list',App\Http\Livewire\Components\Admin\Vehicle\RequestList::class)->name('list.vehicle_request');
     Route::get('create',App\Http\Livewire\Components\Admin\Vehicle\CreateVehicle::class)->name('create.vehicle');
     Route::get('edit/{id}',App\Http\Livewire\Components\Admin\Vehicle\EditVehicle::class)->name('edit.vehicle');
     Route::get('owner-detail/{id}',App\Http\Livewire\Components\Admin\Vehicle\OwnerDetail::class)->name('owner.detail');
+
+    Route::get('request-list',App\Http\Livewire\Components\Admin\Vehicle\RequestList::class)->name('list.vehicle_request');
+    Route::get('request-gallery/{vrequest}',App\Http\Livewire\Components\Admin\Vehicle\RequestGallery::class)->name('vehicle-request.gallery');
+
 });
 
 //Driver Routes

@@ -1,5 +1,7 @@
 <div>
-    <div class="d-flex justify-content-end ">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h5 class="mb-0 text-green font-weight-bold">Vehicle Requests</h5>
+
     </div>
     <div class="row">
         <div class="col-md-4 col-12">
@@ -18,6 +20,8 @@
                 <th>Phone</th>
                 <th>CNIC</th>
                 <th>City</th>
+                <th>State</th>
+                <th>Country</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -32,9 +36,10 @@
                         <td>{{ $request->phone }}</td>
                         <td>{{ $request->cnic }}</td>
                         <td>{{ $request->city }}</td>
+                        <td>{{ $request->state }}</td>
+                        <td>{{ $request->country }}</td>
                         <td class="d-flex d-inline">
-                            <button class="btn bg-danger text-light btn-sm rounded-0"><i
-                                    class="fa fa-eye"></i></button>
+                            <a href="{{route('vehicle-request.gallery',$request->id)}}" class="btn btn-success bg-green btn-sm rounded-0">More..</a>
                         </td>
                     </tr>
                 @endforeach

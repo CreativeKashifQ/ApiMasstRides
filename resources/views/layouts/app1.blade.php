@@ -19,7 +19,7 @@
     <link href="{{ asset('assets/tplapi/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/sass/sb-admin-2.min.scss') }}" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/custom.css') }}">
     @livewireStyles
 
@@ -244,14 +244,14 @@
 <!-- Page level custom scripts -->
 <script src="{{ asset('assets/js/chart-pie-demo123.js') }}"></script>
 <script src="{{ asset('assets/js/chart-area-demo12.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
 <script src="{{ asset('assets/js/jQuery.print.min.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.1/underscore-umd-min.js"></script>
 {{-- TPL Api --}}
-{{-- <script src="{{ asset('assets/tplapi/script.js') }}"></script>
-      <script src="https://api.tplmaps.com/js-api-v2/assets/tplmaps.js?api_key=$2a$10$6hD6jZoIvgY2gUFw4jkPye5AMQvzE0JCIdzmSK1hVDbn95SZ2Bc8G"></script> --}}
+<script src="{{ asset('assets/tplapi/script.js') }}"></script>
+      <script src="https://api.tplmaps.com/js-api-v2/assets/tplmaps.js?api_key=$2a$10$6hD6jZoIvgY2gUFw4jkPye5AMQvzE0JCIdzmSK1hVDbn95SZ2Bc8G"></script>
 
 <script>
     window.addEventListener('swal:modal', event => {

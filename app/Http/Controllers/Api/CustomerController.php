@@ -94,32 +94,26 @@ class CustomerController extends Controller
         }
     }
 
-    public function updateProfilePicture(Request $request)
+    public function updateCustomerPicture(Request $request)
     {
-        return response()->json($request->hasFile('file'));
+
         $request->validate([
             'id' => 'required',
             'file' => 'required'
         ]);
 
+        $filename="IMG".rand().".jpg";
+        file_put_contents(public_path('images/uploads/profilepics/').$filename,base64_decode($request->file));
         $user = User::where('id', $request->id)->first();
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            Image::make($file)->resize(200, 200)->save(public_path('images/uploads/profilepics/'.$filename));
-            $user->file = $filename;
-            $path = env('APP_URL').'/images/uploads/profilepics/'.$filename;
-            $user->save();
-            return $this->success([
-                'user' => $user,
-                'img_url' => $path,
-            ], 'Picture Updated Successfully', 200);
-        } else {
-            return $this->error([], 'error when uploding image, file is not attached');
-        }
+        $customer  = $user->customer;
+        $customer->file = $filename;
+        $customer->save();
+        return $this->success([
+        ], 'Picture Updated Successfully', 200);
+
     }
 
-    public function getProfilePicture(Request $request)
+    public function getCustomerPicture(Request $request)
     {
 
         $request->validate([
@@ -127,7 +121,8 @@ class CustomerController extends Controller
         ]);
 
         $user = User::where('id', $request->id)->first();
-        $image_url =  env('APP_URL').'/images/uploads/profilepics/'.$user->file;
+        $customer = $user->customer;
+        $image_url =  env('APP_URL').'/images/uploads/profilepics/'.$customer->file;
         if ($image_url) {
             return $this->success([
                 'user' => $user,
@@ -155,46 +150,14 @@ class CustomerController extends Controller
 
         $filename="IMG".rand().".jpg";
         file_put_contents(public_path('images/uploads/profilepics/').$filename,base64_decode($request->upload));
-        $customer = new Customer;;
-        $customer->city = $filename;
-        $customer->save();
+        $file = new File;
+        $file->user_id = 1;
+        $file->file = $filename;
+        $file->type = 'Profile Pic';
+        $file->save();
         return response()->json('image upload successfully With Folder and Database');
 
-        //****MULTIPLE IMAGE UPLOAD */
-        // $request->validate([
-        //     't1' => 'required',
-        //     't2' => 'required',
-        //     'upload' => 'required',
-        // ]);
 
-        // $filename="IMG".rand().".jpg";
-        // file_put_contents(public_path('images/uploads/profilepics/').$filename,base64_decode($request->upload));
-        // $file = new File;
-        // $file->user_id = 1;
-        // $file->type = 'testing';
-        // $file->file = $filename;
-        // $file->save();
-        // return response()->json('multiple images uploaded successfully With Folder and Database');
-
-
-
-         //****MULTIPLE IMAGE UPLOAD WITH FOREACH */
-        // $request->validate([
-        //     't1' => 'required',
-        //     't2' => 'required',
-        //     'upload' => 'required',
-        // ]);
-        // $images [] = $request->upload;
-        // foreach($images as $image){
-        //     $filename="IMG".rand().".jpg";
-        //     file_put_contents(public_path('images/uploads/profilepics/').$filename,base64_decode($image));
-        //     $pic = new File;
-        //     $pic->user_id = 1;
-        //     $pic->type = 'testing';
-        //     $pic->file = $filename;
-        //     $pic->save();
-        //     return response()->json('multiple images uploaded successfully with foreach loops');
-        // }
 
 
     }
@@ -209,29 +172,5 @@ class CustomerController extends Controller
     */
 
 
-    public function testFileUpload()
-    {
-
-        $conn=mysqli_connect("localhost","masstrid_test","MJrGpAkXCL)T");
-        mysqli_select_db($conn,"masstrid_test");
-
-
-	   $name=$_POST['t1'];
-	   $design=$_POST['t2'];
-	   $img=$_POST['upload'];
-
-                   $filename="IMG".rand().".jpg";
-	   file_put_contents("images/".$filename,base64_decode($img));
-
-			$qry="INSERT INTO `tbl_staff` (`id`, `name`, `desig`, `image`)
-			      VALUES (NULL, '$name', '$design', '$filename')";
-
-			$res=mysqli_query($conn,$qry);
-
-			if($res==true)
-			 echo "File Uploaded Successfully";
-			else
-			 echo "Could not upload File";
-    }
 
 }

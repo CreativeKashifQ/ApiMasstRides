@@ -15,10 +15,12 @@ class CreateDriversTable extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('franchise_id')->nullable();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->string('cnic')->nullable();
             $table->string('country')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();

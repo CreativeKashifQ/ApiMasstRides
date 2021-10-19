@@ -28,15 +28,34 @@ class DriverController extends Controller
 
     public function showFranchises($id)
     {
+
         $driver = Driver::where('id',$id)->first();
         $franchises = Franchise::where('city',$driver->city)->get();
-        return view('admin.driver.f-assign',compact('franchises','driver'));
+
+        if(!$franchises->isEmpty()){
+            return view('admin.driver.f-assign',compact('franchises','driver'));
+        }else{
+            return back()->with('error','Sorry ! We did\'nt find any franchise related to this driver city.');
+        }
+
 
     }
 
     public function assignFranchise(Request $request)
     {
-        dd($request->all());
+
+        $request->validate([
+            'franchise'=> 'required',
+            'driver' => 'required',
+        ]);
+        $driver = Driver::where('id',$request->driver)->first();
+        $driver->franchise_id = $request->franchise;
+        $driver->save();
+        return redirect()->back()->with('success','Selected Franchise Assign To Driver');
+
+
+
+
     }
     /**
      * Display a listing of the resource.
